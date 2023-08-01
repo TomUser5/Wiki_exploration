@@ -12,6 +12,7 @@ async function findFirstLinkInParagraph(articleTitle) {
         const $ = cheerio.load(html);
         
         let link = null;
+        let boldText = null;
 
         $('p b').each((index, element) => {
             const paragraphContainingBoldText = $(element).parent('p');
@@ -21,6 +22,7 @@ async function findFirstLinkInParagraph(articleTitle) {
                 const linkHref = $(linkElement).attr('href');
                 if (!unwantedLinks.has(linkHref) && !linkHref.startsWith('/wiki/Help:IPA/')) {
                     link = linkHref;
+                    boldText = $(element).text();
                     return false;
                 }
             });
@@ -34,9 +36,10 @@ async function findFirstLinkInParagraph(articleTitle) {
         }
 
         const linkTitle = decodeURIComponent(link.replace('/wiki/', ''));
-        console.log(`Link in Paragraph: ${linkTitle}`);
+        console.log(`Current page: ${boldText}`);
+        //console.log(`Next page: ${linkTitle}`);
 
-        // Repeat the process with the new link after a delay of 1 seconds (adjust as needed)
+        // Repeat the process with the new link after a delay of 1 second (adjust as needed)
         await delay(1000);
         findFirstLinkInParagraph(linkTitle);
     } catch (error) {
@@ -44,4 +47,5 @@ async function findFirstLinkInParagraph(articleTitle) {
     }
 }
 
-findFirstLinkInParagraph('Mathematics');
+// findFirstLinkInParagraph('Mathematics');
+findFirstLinkInParagraph('Kullback–Leibler divergence');

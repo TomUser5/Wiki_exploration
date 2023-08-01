@@ -1,4 +1,4 @@
-    const wiki = require('wikijs').default;
+const wiki = require('wikijs').default;
 const cheerio = require('cheerio');
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -36,8 +36,8 @@ async function findFirstLinkInParagraph(articleTitle) {
         const linkTitle = decodeURIComponent(link.replace('/wiki/', ''));
         console.log(`Link in Paragraph: ${linkTitle}`);
 
-        // Repeat the process with the new link after a delay of 2 seconds (adjust as needed)
-        await delay(2000);
+        // Repeat the process with the new link after a delay of 1 seconds (adjust as needed)
+        await delay(1000);
         findFirstLinkInParagraph(linkTitle);
     } catch (error) {
         console.error('Error:', error);
